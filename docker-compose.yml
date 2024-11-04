@@ -4,6 +4,13 @@ networks:
    mongonet:
        external: true
        name: 'mongo-network'
+   redisnet:
+       external: true
+       name: 'redisnet'
+   apinet:
+       external: true
+       name: 'apinet'
+   
 
 services:
   api:
@@ -19,7 +26,8 @@ services:
       - mongo-db
       - redis
     networks:
-       - mongonet
+       - redisnet
+       - apinet
 
   mongo-db:
     image: mongo:8.0-rc
@@ -29,6 +37,9 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=password
     networks:
        - mongonet
+       - apinet
+    volumes:
+      - ./db:/data/db
 
   mongo-express:
     image: mongo-express:1.0-20-alpine3.19
@@ -49,4 +60,4 @@ services:
     image: redis:alpine
     container_name: redis
     networks:
-       - mongonet
+       - redisnet
