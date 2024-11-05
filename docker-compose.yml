@@ -39,7 +39,7 @@ services:
        - mongonet
        - apinet
     volumes:
-      - ./db:/data/db
+      - ./seed:/data/db
 
   mongo-express:
     image: mongo-express:1.0-20-alpine3.19
